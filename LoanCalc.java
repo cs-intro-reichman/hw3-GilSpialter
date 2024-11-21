@@ -31,9 +31,9 @@ public class LoanCalc {
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
-		for (int i = 0; i <= n; i++) {
+		for (int i = 0; i < n; i++) {
 			loan -= (double) payment;
-			loan = (double) loan * (1 + rate/100);
+			loan = (double) loan * (1 + (rate / 100));
 		}
 		return loan;
 	}
@@ -59,19 +59,19 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-		double H = (double) loan;								// H = too high of a payment
-		double L = (double) loan / n;							// L = too low of a payment
-		double payment = (double) (H + L) / 2;
-		iterationCounter = 0;
-		while (H - L > epsilon) {
-			if (endBalance(loan, rate, n, H) * endBalance(loan, rate, n, L) < 0) { 		//negative left over. meaning best payment is less.
-				H = payment;	
+		double H = (double) loan;									// H = too high of a payment, reaching negative too early
+		double L = (double) 0 ;										// L = too low of a payment, not reaching negative
+		double payment = (double) loan / n;
+		iterationCounter = -1;										
+		while ((double) H - L > epsilon) {
+			if (endBalance(loan, rate, n, payment) > 0) { 					// positive left over. meaning best payment is more.
+				L = payment;
 			}
 			else {	
-				L = payment;															// positive left over. meaning best payment is higher.
+				H = payment;												// negative left over. meaning best payment is less.
 			}
+			payment = (double) (H + L) / 2;
 			iterationCounter ++;
-			payment = (H + L) / 2;
     	}
 		return payment;
 	}

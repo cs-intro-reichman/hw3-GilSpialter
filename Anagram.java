@@ -33,30 +33,41 @@ public class Anagram {
 		str1 = preProcess(str1);
 		str2 = preProcess(str2);
 
-		for (int i = 0; i < str1.length(); i++) {
+		for (int i = 0; i < str1.length(); i++) {									//running through string 1
 			c = str1.charAt(i);
-
-			if (str2.indexOf(c) == -1) {
+			while (c == 32) {															
+				str1 = str1.substring(0, i) + str1.substring(i+1);		//if char is " ", skip over
+				c = str1.charAt(i);
+			}
+			if (str2.indexOf(c) == -1) {											//if char isnt in string 2 - return false
 				return false;
 			}
-			else {
-                firstHalf = str2.substring(0, str2.indexOf(c));
-                secondHalf = str2.substring(str2.indexOf(c) + 1 , str2.length());
+			else {																	//if char is   in string 2 - remove from string 2
+           	    firstHalf = str2.substring(0, str2.indexOf(c));			
+           	    secondHalf = str2.substring(str2.indexOf(c) + 1 , str2.length());
 				str2 = firstHalf + secondHalf;
 			}
 		}
-        return (str2.length() == 0);
+
+		for (int j = 0; j < str2.length(); j++) {									//if there is a char  in string 2 that isnt " " - return false
+			if (str2.charAt(j) != 32)	{
+				return false;
+			}
+		}
+        return (true);																//otherwise return true
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
-	// as is. For example, the string "What? No way!" becomes "whatnoway"
+	// as is. For example, the string "What? No way!" becomes "what no way"
 	public static String preProcess(String str) {
 		String s = "";
 		str = str.toLowerCase();
+		char c;
 		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) >= 97 && str.charAt(i) <= 122) {
-				s = s + str.charAt(i);
+			c = str.charAt(i);
+			if ((97 <= c && c <= 122) || c == 32 ) {
+				s = s + c;
 			}
 		}
 		return s;

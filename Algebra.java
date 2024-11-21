@@ -25,27 +25,47 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		for (int i = 0; i < x2; i++) {
-			x1 ++;
+		if (x2 > 0) {
+			for (int i = 0; i < x2; i++) {
+				x1 ++;
+			}
+		}
+		else {
+			for (int i = 0; i > x2; i--) {
+				x1 --;
+			}
 		}
 		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		for (int i = 0; i < x2; i++) {
-			x1 --;
-		}		
+		if (x2 > 0) {
+			for (int i = 0; i < x2; i++) {
+				x1 --;
+			}
+		}
+		else {
+			for (int i = 0; i > x2; i--) {
+				x1 ++;
+			}
+		}
 		return x1;
 	}
-
+																	///////check mistakes in ghit from here on out
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		int sum = x1;
-		for (int i = 1; i < x2; i++) {
-			sum = plus(sum, x1);
-		}		
-		return sum;
+		int sum = 0;
+		int q = 1;
+
+		if (x2 < 0) {
+			q = -1;
+		}
+
+			for (int i = 0; i < Math.abs(x2); i++) {
+				sum = plus(sum, x1);
+			}		
+		return q * sum;
 	}
 
 	// Returns x^n (for n >= 0)
@@ -60,11 +80,17 @@ public class Algebra {
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int counter = 0, sum = 0;
-		while (sum + x2 <= x1) {
-			sum = plus (sum, x2);
+		int q;
+
+		if (x1 * x2 >= 0) { 
+				q = 1;  }
+		else {	q = -1; }
+
+		while (sum + Math.abs(x2) <= Math.abs(x1)) {
+			sum = plus (sum, Math.abs(x2));
 			counter++;
 		}
-		return counter;
+		return q * counter;
 	}
 
 	// Returns x1 % x2
