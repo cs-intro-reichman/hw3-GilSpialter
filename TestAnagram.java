@@ -29,7 +29,7 @@ public class TestAnagram {
         System.out.println("Test 4 (empty strings): " + (test4 ? "PASS" : "FAIL"));
         
         // Test case 5: Complex anagram with spaces
-        boolean test5 = Anagram.isAnagram("William Shakespeare", "I am a weakish speller");     //theres a mistake here fixfixfixfixfixfixfixfixfixfixfixfixfixfixfixfixfixfixfixfix
+        boolean test5 = Anagram.isAnagram("William Shakespeare", "I am a weakish speller");
         System.out.println("Test 5 (complex anagram): " + (test5 ? "PASS" : "FAIL"));
         
         // Test case 6: Case sensitivity

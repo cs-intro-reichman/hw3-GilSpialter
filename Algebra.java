@@ -52,20 +52,23 @@ public class Algebra {
 		}
 		return x1;
 	}
-																	///////check mistakes in ghit from here on out
+	
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		int sum = 0;
-		int q = 1;
-
-		if (x2 < 0) {
-			q = -1;
-		}
-
-			for (int i = 0; i < Math.abs(x2); i++) {
+		if (x2 > 0) {
+			for (int i = 0; i < x2; i++) {
 				sum = plus(sum, x1);
-			}		
-		return q * sum;
+			}	
+		}
+		else {
+			for (int i = 0; i > x2; i--) {
+				sum = plus(sum, x1);
+			}
+		}
+			
+		if (x2 > 0) { return sum; 				}
+		else 		{ return minus (0, sum); }
 	}
 
 	// Returns x^n (for n >= 0)
@@ -77,20 +80,26 @@ public class Algebra {
 		return sum;
 	}
 
+	// Returns absolute value of an integer
+	public static int abs(int x) {
+		if (x >= 0) return x;
+		else return minus(0, x);
+	}
+	
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int counter = 0, sum = 0;
 		int q;
 
-		if (x1 * x2 >= 0) { 
+		if (times(x1, x2) >= 0) {
 				q = 1;  }
-		else {	q = -1; }
-
-		while (sum + Math.abs(x2) <= Math.abs(x1)) {
-			sum = plus (sum, Math.abs(x2));
+		else {	q = minus(0, 1); }
+	
+		while (sum <= minus(abs(x1), abs(x2))) {
+			sum = plus (sum, abs(x2));
 			counter++;
 		}
-		return q * counter;
+		return times(q, counter);
 	}
 
 	// Returns x1 % x2
@@ -104,7 +113,7 @@ public class Algebra {
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
 		if ( x < 0 ) {
-			return -1;
+			return minus(0, 1);
 		}
 		int sq = 0;
 		while (pow(sq, 2) <= x) {
